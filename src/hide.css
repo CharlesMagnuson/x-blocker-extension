@@ -1,0 +1,38 @@
+/* X Blocker: first-paint layer.
+ * Injected at document_start so Twitter/X elements never flash before the
+ * content script runs. Selectors are protocol-anchored for x.com so that
+ * netflix.com / dropbox.com / box.com are never caught. The JS layer
+ * handles exact hostname matching, SVG logos, the 𝕏 glyph and mutations. */
+
+/* Anything the content script has classified. */
+[data-xb-hidden] { display: none !important; }
+
+/* x.com (exact host or subdomain, any protocol form). */
+a[href="https://x.com" i], a[href="http://x.com" i], a[href="//x.com" i],
+a[href^="https://x.com/" i], a[href^="https://x.com?" i], a[href^="https://x.com#" i],
+a[href^="http://x.com/" i], a[href^="//x.com/" i],
+a[href*="://www.x.com" i], a[href*="://mobile.x.com" i], a[href*="://platform.x.com" i],
+a[href*="//www.x.com" i], a[href*="//mobile.x.com" i],
+a[href*="%2F%2Fx.com" i], a[href*="%2F%2Fwww.x.com" i], a[href*="//x.com/" i],
+/* twitter.com, t.co, twimg.com */
+a[href*="twitter.com" i], a[href*="twitter%2Ecom" i],
+a[href^="https://t.co/" i], a[href^="http://t.co/" i], a[href^="//t.co/" i], a[href*="://t.co/" i],
+a[href*="twimg.com" i],
+/* embeds and media */
+iframe[src*="twitter.com" i], iframe[src*="://x.com/" i], iframe[src*="//platform.x.com" i], iframe[src*="twimg.com" i],
+img[src*="twimg.com" i], img[src*="twitter.com" i], img[srcset*="twimg.com" i],
+source[src*="twimg.com" i], source[srcset*="twimg.com" i], video[src*="twimg.com" i], video[poster*="twimg.com" i],
+form[action*="twitter.com" i], form[action*="://x.com/" i],
+/* named elements */
+blockquote.twitter-tweet, blockquote.twitter-video, .twitter-timeline, .twitter-follow-button, .twitter-share-button,
+.fa-twitter, .fa-x-twitter, .fa-square-x-twitter, .fa-square-twitter, .icon-twitter, .icon-x-twitter,
+:not(html):not(body)[class*="twitter" i],
+:not(html):not(body)[id*="twitter" i],
+[aria-label*="twitter" i], [title*="twitter" i], img[alt*="twitter" i],
+[aria-label="X" i]:is(a, [role="link"]),
+[aria-label*="Share on X" i], [aria-label*="Post on X" i], [aria-label*="Post to X" i], [aria-label*="Follow on X" i],
+[aria-label*="formerly Twitter" i], [title*="formerly Twitter" i], img[alt*="formerly Twitter" i],
+[data-network="twitter" i], [data-service="twitter" i], [data-provider="twitter" i], [data-platform="twitter" i],
+[data-network="x" i], [data-service="x" i], [data-provider="x" i], [data-platform="x" i] {
+  display: none !important;
+}

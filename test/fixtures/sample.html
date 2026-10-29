@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>X Blocker fixture</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; margin: 2rem; max-width: 720px; }
+  .share-bar a, .share-bar button { display: inline-block; padding: .4rem .8rem; margin: .2rem; border: 1px solid #999; border-radius: 6px; }
+  svg { width: 20px; height: 20px; vertical-align: middle; }
+  .should-hide { color: #b00; }
+  .should-keep { color: #060; }
+</style>
+</head>
+<body>
+<h1>X Blocker fixture</h1>
+<p>Red items must disappear. Green items must stay.</p>
+
+<h2>Links</h2>
+<ul>
+  <li><a class="should-hide" data-expect="hide" href="https://x.com/someone">x.com profile link</a></li>
+  <li><a class="should-hide" data-expect="hide" href="https://twitter.com/someone/status/1">twitter.com status link</a></li>
+  <li><a class="should-hide" data-expect="hide" href="https://t.co/abc123">t.co short link</a></li>
+  <li><a class="should-hide" data-expect="hide" href="https://example.com/out?u=https%3A%2F%2Fx.com%2Fme">redirector to x.com</a></li>
+  <li><a class="should-keep" data-expect="keep" href="https://netflix.com">netflix.com (ends in x.com)</a></li>
+  <li><a class="should-keep" data-expect="keep" href="https://www.dropbox.com/s/abc">dropbox.com</a></li>
+  <li><a class="should-keep" data-expect="keep" href="https://mastodon.social/@someone">mastodon.social</a></li>
+  <li><a class="should-keep" data-expect="keep" href="https://xbox.com">Xbox Series X</a></li>
+</ul>
+
+<h2>Share bar</h2>
+<div class="share-bar">
+  <a class="should-hide" data-expect="hide" href="https://twitter.com/intent/tweet?text=hello">Tweet</a>
+  <a class="should-hide" data-expect="hide" href="https://x.com/intent/post?text=hello">Post on X</a>
+  <button class="should-hide" data-expect="hide" aria-label="Share on X">share</button>
+  <button class="should-hide share-twitter" data-expect="hide" data-href="https://x.com/intent/post">share</button>
+  <a class="should-hide" data-expect="hide" href="/share/x">𝕏</a>
+  <a class="should-keep" data-expect="keep" href="https://www.facebook.com/sharer/sharer.php?u=x">Facebook</a>
+  <a class="should-keep" data-expect="keep" href="mailto:?subject=hi">Email</a>
+  <button class="should-keep modal-close" data-expect="keep" aria-label="Close">X</button>
+</div>
+
+<h2>Inline SVG icons</h2>
+<ul id="svg-list">
+  <li data-expect="hide"><a href="/social/x"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></li>
+  <li data-expect="hide"><a href="/social/x2"><svg viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></a></li>
+  <li data-expect="hide"><a href="/social/bird"><svg viewBox="0 0 24 24"><title>Twitter</title><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723"/></svg></a></li>
+  <li data-expect="hide"><svg><use href="#icon-twitter"></use></svg></li>
+  <li data-expect="keep"><a href="/social/mastodon"><svg viewBox="0 0 24 24"><title>Mastodon</title><path d="M21.327 8.566c0-4.339-2.843-5.61-2.843-5.61"/></svg></a> Mastodon</li>
+  <li data-expect="keep"><button aria-label="Close dialog"><svg viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button> close icon</li>
+</ul>
+
+<h2>Images and embeds</h2>
+<img class="should-hide" data-expect="hide" alt="twimg image" src="https://pbs.twimg.com/media/example.jpg" width="80" height="80">
+<img class="should-hide" data-expect="hide" alt="Twitter" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="40">
+<img class="should-keep" data-expect="keep" alt="Placeholder" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="40" height="40">
+<blockquote class="twitter-tweet" data-expect="hide"><p>An embedded tweet.</p></blockquote>
+<iframe data-expect="hide" src="https://platform.twitter.com/embed/Tweet.html?id=1" title="tweet embed"></iframe>
+<i class="fab fa-x-twitter" data-expect="hide"></i>
+
+<h2>Prose</h2>
+<p id="prose" data-expect="keep">The platform formerly known as Twitter rebranded to 𝕏 in 2023. This paragraph must stay, minus the glyph.</p>
+<span id="lone-glyph" data-expect="hide">𝕏</span>
+
+<h2>Dynamic</h2>
+<div id="dynamic"></div>
+<div id="shadow-host"></div>
+<script>
+  setTimeout(function () {
+    document.getElementById('dynamic').innerHTML =
+      '<a data-expect="hide" href="https://x.com/late">late x.com link</a> ' +
+      '<a data-expect="keep" href="https://example.com/late">late example link</a>';
+    var root = document.getElementById('shadow-host').attachShadow({ mode: 'open' });
+    root.innerHTML = '<a data-expect="hide" href="https://twitter.com/shadow">shadow twitter link</a> <a data-expect="keep" href="https://example.com">shadow ok</a>';
+  }, 50);
+</script>
+</body>
+</html>

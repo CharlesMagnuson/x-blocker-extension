@@ -1,0 +1,12 @@
+{
+  "name": "x-blocker-extension",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chrome extension that hides every Twitter/X link, image, share button, embed and logo on every webpage.",
+  "scripts": {
+    "test": "node --test 'test/**/*.test.js'"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.1"
+  }
+}
