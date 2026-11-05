@@ -9,7 +9,7 @@ X Blocker
 
 ## Summary (132 characters max, from manifest description)
 
-Hides every Twitter/X link, share button, image, embed and logo on every webpage, and blocks requests to x.com, twitter.com, t.co and twimg.com.
+Hides every Twitter/X link, share button, image, embed and logo on every page, and blocks requests to x.com, twitter.com and t.co.
 
 ## Category
 

@@ -55,3 +55,8 @@ test('version is strictly greater than the 1.0 already on the Web Store', () => 
   for (let i = 0; i < n && cmp === 0; i++) cmp = (parts[i] || 0) - (old[i] || 0);
   assert.ok(cmp > 0, `version ${manifest.version} must be > 1.0`);
 });
+
+test('description fits the Web Store limit of 132 characters', () => {
+  // The store rejected a 144-character description on 2026-11-04.
+  assert.ok(manifest.description.length <= 132, `description is ${manifest.description.length} chars`);
+});
