@@ -17,29 +17,17 @@ Productivity > Workflow & Planning (or Social & Communication, whichever the das
 
 ## Detailed description
 
-X Blocker removes every visible trace of Twitter/X from every page you visit.
+The purpose of this extension is to remove X/Twitter from your web browsing experience.
 
-What it hides:
-• Links to x.com, twitter.com and t.co, including redirector links that point there
-• "Share on X" and "Follow us on X" buttons
-• Images hosted on twimg.com
-• Embedded tweets, timelines and the widgets that load them
-• The 𝕏 logo, the Twitter bird and icon-font glyphs for both
-• Wrappers left empty once the X element inside them is gone, so no blank boxes remain
+Once installed, this extension prevents navigating to X/Twitter URLs directly. On every other page, anything that points at X/Twitter is hidden: links, share and follow buttons, sign-in buttons, images hosted on X, embedded posts and timelines, and the X logo or Twitter bird wherever they appear, including as icons or the 𝕏 character. Requests to x.com, twitter.com, t.co and twimg.com are blocked outright, so embed scripts and trackers never load.
 
-What it blocks:
-• Every network request to x.com, twitter.com, t.co and twimg.com, so embed scripts and trackers never download
+Version 2.0 is a complete rewrite. It hides things before the page paints, so nothing flashes and then disappears, and it keeps watching as pages change, including inside frames. It never catches look-alikes such as netflix.com, dropbox.com or ordinary "X" close buttons.
 
-How it works:
-• Blocking rules run inside Chrome's declarativeNetRequest engine, so nothing is fetched from those domains
-• A stylesheet hides the obvious cases at first paint, before the page can flash them
-• A lightweight content script sweeps each page once, then watches for new content, including inside frames and open shadow roots
+There are no settings and no data collection. Install it and X is gone.
 
-What it does not do:
-• It never reads, stores or sends your browsing data anywhere. There is no backend, no analytics and no account
-• It has no settings and no popup. Install it and X disappears
+Covering all possibilities in a world of infinite possibilities is difficult, so this extension might not catch every X/Twitter button you run across. I'll do my best to improve the coverage as more are discovered.
 
-Version 2.0 is a ground-up rewrite that catches far more than the original and no longer flashes content before hiding it. Matching is exact-or-subdomain, so sites such as box.com, dropbox.com and netflix.com are never caught, and ordinary close buttons labelled "X" are left alone.
+Say 🙅🏻 to X.
 
 Open source: https://github.com/CharlesMagnuson/x-blocker-extension
 
