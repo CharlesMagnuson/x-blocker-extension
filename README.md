@@ -6,6 +6,10 @@ It also blocks network requests to x.com, twitter.com, t.co and twimg.com.
 
 ## Install
 
+From the Chrome Web Store: https://chromewebstore.google.com/detail/cfdddjlicbgaodlnkfmpljfmihodpjml
+
+Or load it unpacked:
+
 1. Open `chrome://extensions`.
 2. Turn on **Developer mode** (top right).
 3. Click **Load unpacked** and choose this folder.
@@ -58,6 +62,10 @@ rule's `resourceTypes` in `rules.json` and reload the extension.
 npm install
 npm test
 ```
+
+`npm run package` zips exactly the files the manifest references into
+`dist/x-blocker-<version>.zip` for upload to the Chrome Web Store. The
+listing text, permission justifications and store images live in `store/`.
 
 Tests use `node --test` with jsdom. `test/fixtures/sample.html` is a manual
 fixture: every element carries `data-expect="hide"` or `data-expect="keep"`.
